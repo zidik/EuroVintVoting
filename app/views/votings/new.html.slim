@@ -1,0 +1,16 @@
+h1 New voting
+
+= form_for @voting do |f|
+  - if @voting.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@voting.errors.count, "error")} prohibited this voting from being saved:"
+      ul
+        - @voting.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions = f.submit
+
+= link_to 'Back', votings_path

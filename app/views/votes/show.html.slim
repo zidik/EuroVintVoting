@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Registration:
+  = @vote.registration
+p
+  strong From phone:
+  = @vote.from_phone
+p
+  strong To phone:
+  = @vote.to_phone
+p
+  strong From country:
+  = @vote.from_country
+
+= link_to 'Edit', edit_vote_path(@vote)
+'|
+= link_to 'Back', votes_path

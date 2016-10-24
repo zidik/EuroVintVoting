@@ -1,0 +1,29 @@
+h1 Listing registrations
+
+table
+  thead
+    tr
+      th Order No
+      th Voting
+      th Country
+      th Artist
+      th Title
+      th
+      th
+      th
+
+  tbody
+    - @registrations.order(:order_no).each do |registration|
+      tr
+        td = registration.order_no
+        td = registration.voting.name
+        td = registration.participant.country
+        td = registration.participant.artist
+        td = registration.participant.title
+        td = link_to 'Show', registration
+        td = link_to 'Edit', edit_registration_path(registration)
+        td = link_to 'Destroy', registration, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Registration', new_registration_path

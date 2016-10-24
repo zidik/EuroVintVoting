@@ -1,0 +1,17 @@
+div
+  strong Name:
+  = @voting.name
+div
+  strong Start:
+  = @voting.start_time
+div
+  strong Stop:
+  = @voting.stop_time
+
+= link_to_if @voting.startable?, 'Start', [:start, @voting], data: { confirm: "Start #{@voting.name}?" }, method: :post
+'|
+= link_to_if @voting.stoppable?, 'Stop', [:stop, @voting], data: { confirm: "Stop #{@voting.name}?" }, method: :post
+'|
+= link_to 'Edit', edit_voting_path(@voting)
+'|
+= link_to 'Back', votings_path

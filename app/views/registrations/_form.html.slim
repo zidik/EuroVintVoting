@@ -1,0 +1,19 @@
+= form_for @registration do |f|
+  - if @registration.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@registration.errors.count, "error")} prohibited this registration from being saved:"
+      ul
+        - @registration.errors.full_messages.each do |message|
+          li = message
+
+
+  .field
+    = f.label :voting
+    = f.collection_select :voting_id, Voting.all, :id, :name, {:prompt => 'Select the voting'}, :selected => @registration.voting
+  .field
+    = f.label :order_no
+    = f.select :order_no, (1..20)
+  .field
+    = f.label :participant
+    = f.collection_select :participant_id, Participant.all, :id, :to_string, {:prompt => 'Select the participant'}, :selected => @registration.participant
+  .actions = f.submit

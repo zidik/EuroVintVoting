@@ -1,0 +1,25 @@
+h1 Listing votings
+
+table
+  thead
+    tr
+      th Name
+      th Start Time
+      th Stop Time
+      th
+      th
+      th
+
+  tbody
+    - @votings.each do |voting|
+      tr
+        td = voting.name
+        td = voting.start_time
+        td = voting.stop_time
+        td = link_to 'Show', voting
+        td = link_to 'Edit', edit_voting_path(voting)
+        td = link_to 'Destroy', voting, data: { confirm: "Delete #{voting.name}?" }, method: :delete
+
+br
+
+= link_to 'New Voting', new_voting_path
