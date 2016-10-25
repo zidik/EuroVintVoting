@@ -1,8 +1,8 @@
 class VotesController < ApplicationController
   # When receiving vote respond only with view content
-  layout false, only: [:receive]
+  layout false, only: [:receive_vote]
 
-  protect_from_forgery unless: [:receive]
+  protect_from_forgery except: [:receive_vote]
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
 
   # GET /votes
@@ -68,8 +68,10 @@ class VotesController < ApplicationController
 
   # POST /vote_for/1
   # Controller that responds to Twilio
-  def receive
+  def receive_vote
+    puts "!!!!!!!!!!!!!!!!!"
     current = Voting.current
+    raise "There is no voting that is 'current'" if current.nil?
 
     unless current.running?
       @response = "Voting is stopped"
@@ -80,16 +82,21 @@ class VotesController < ApplicationController
     raise "No registration found!" if registration.nil?
 
     # Let's try to save the vote to DB
-    registration.votes.create!(call_params)
+    vote = Vote.new(call_params)
+    vote.registration = registration
+    vote.save!
 
     # All went well - let's notify user!
     @response = "Thank you! Vote received!"
 
-  rescue => e
+  rescue StandardError => e
     logger.error e.message
-    logger.error e.backtrace.join("\n")
+    #logger.error e.backtrace.join("\n")
     @response = "Something went wrong. Try again later."
+    raise
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

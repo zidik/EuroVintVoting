@@ -156,4 +156,32 @@ RSpec.describe VotesController, :type => :controller do
     end
   end
 
+  describe "POST receive_vote" do
+    let!(:voting) { FactoryGirl.create(:voting) }
+    let!(:participant) { FactoryGirl.create(:participant) }
+    let!(:registration) { FactoryGirl.create(:registration, voting:voting, participant:participant) }
+    describe "with valid params" do
+      describe "when voing is stopped" do
+        it "assigns response value correctly" do
+          post :receive_vote, {choice: 1}, valid_session
+          expect(assigns(:response)).to eq("Voting is stopped")
+        end
+      end
+      describe "when voing is running" do
+        it "creates a new Vote" do
+          voting.start! #TODO:not like this!
+          expect {
+            post :receive_vote, {choice: 1}, valid_session
+          }.to change(Vote, :count).by(1)
+        end
+      end
+
+      it "renders the 'receive' template" do
+        post :receive_vote, {choice: 1}, valid_session
+        expect(response).to render_template("receive")
+      end
+    end
+
+  end
+
 end

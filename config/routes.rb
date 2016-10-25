@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
-  post 'votefor/:choice', to: 'votes#receive'
+  post 'votefor/:choice', to: 'votes#receive_vote'
 
 
 end

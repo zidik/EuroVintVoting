@@ -54,10 +54,14 @@ class ParticipantsController < ApplicationController
   # DELETE /participants/1
   # DELETE /participants/1.json
   def destroy
-    @participant.destroy
-    respond_to do |format|
-      format.html { redirect_to participants_url, notice: 'Participant was successfully destroyed.' }
-      format.json { head :no_content }
+    if @participant.destroy
+      respond_to do |format|
+        format.html { redirect_to participants_url, notice: 'Participant was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      format.html { redirect_to participants_url, notice: 'Participant was NOT destroyed.' }
+      format.json { render json: @participant.errors, status: :internal_server_error }
     end
   end
 
