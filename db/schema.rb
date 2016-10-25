@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20161024235630) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "participants", force: :cascade do |t|
     t.string   "country"
     t.string   "artist"
@@ -26,9 +29,9 @@ ActiveRecord::Schema.define(version: 20161024235630) do
     t.integer  "order_no"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.index ["participant_id"], name: "index_registrations_on_participant_id"
-    t.index ["voting_id", "participant_id"], name: "index_registrations_on_voting_id_and_participant_id", unique: true
-    t.index ["voting_id"], name: "index_registrations_on_voting_id"
+    t.index ["participant_id"], name: "index_registrations_on_participant_id", using: :btree
+    t.index ["voting_id", "participant_id"], name: "index_registrations_on_voting_id_and_participant_id", unique: true, using: :btree
+    t.index ["voting_id"], name: "index_registrations_on_voting_id", using: :btree
   end
 
   create_table "votes", force: :cascade do |t|
@@ -38,7 +41,7 @@ ActiveRecord::Schema.define(version: 20161024235630) do
     t.string   "from_country"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.index ["registration_id"], name: "index_votes_on_registration_id"
+    t.index ["registration_id"], name: "index_votes_on_registration_id", using: :btree
   end
 
   create_table "votings", force: :cascade do |t|
@@ -48,4 +51,7 @@ ActiveRecord::Schema.define(version: 20161024235630) do
     t.boolean  "running"
   end
 
+  add_foreign_key "registrations", "participants"
+  add_foreign_key "registrations", "votings"
+  add_foreign_key "votes", "registrations"
 end
