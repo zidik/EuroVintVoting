@@ -8,5 +8,6 @@ class Registration < ApplicationRecord
   validates :voting, presence: true
   validates :participant, presence: true
   validates_uniqueness_of :participant, :scope => :voting
+  validates_uniqueness_of :order_no, :scope => :voting
 
 end
