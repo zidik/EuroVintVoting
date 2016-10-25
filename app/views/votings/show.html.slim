@@ -2,11 +2,8 @@ div
   strong Name:
   = @voting.name
 div
-  strong Start:
-  = @voting.start_time
-div
-  strong Stop:
-  = @voting.stop_time
+  strong Status:
+  = @voting.running? ? "Running" : "Stopped"
 
 = link_to_if @voting.startable?, 'Start', [:start, @voting], data: { confirm: "Start #{@voting.name}?" }, method: :post
 '|

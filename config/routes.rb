@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'results/show'
+
   root 'welcome#index'
   get 'welcome/index'
 

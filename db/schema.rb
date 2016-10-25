@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020020636) do
+ActiveRecord::Schema.define(version: 20161024235630) do
 
   create_table "participants", force: :cascade do |t|
     t.string   "country"
@@ -43,10 +43,9 @@ ActiveRecord::Schema.define(version: 20161020020636) do
 
   create_table "votings", force: :cascade do |t|
     t.string   "name"
-    t.datetime "start_time"
-    t.datetime "stop_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "running"
   end
 
 end

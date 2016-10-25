@@ -14,7 +14,7 @@ table
   tbody
     - @votes.each do |vote|
       tr
-        td = vote.registration
+        td = vote.registration.voting.name + " | " + vote.registration.participant.country
         td = vote.from_phone
         td = vote.to_phone
         td = vote.from_country

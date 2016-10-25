@@ -3,9 +3,11 @@ h1 Listing votings
 table
   thead
     tr
+      th
       th Name
-      th Start Time
-      th Stop Time
+      th Status
+      th
+      th
       th
       th
       th
@@ -13,9 +15,12 @@ table
   tbody
     - @votings.each do |voting|
       tr
+        td
+          b = 'Current' if voting.current?
         td = voting.name
-        td = voting.start_time
-        td = voting.stop_time
+        td = voting.running? ? "Running" : "Stopped"
+        td = link_to_if voting.startable?, 'Start', [:start, voting], data: { confirm: "Start #{voting.name}?" }, method: :post
+        td = link_to_if voting.stoppable?, 'Stop', [:stop, voting], data: { confirm: "Stop #{voting.name}?" }, method: :post
         td = link_to 'Show', voting
         td = link_to 'Edit', edit_voting_path(voting)
         td = link_to 'Destroy', voting, data: { confirm: "Delete #{voting.name}?" }, method: :delete

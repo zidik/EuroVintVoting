@@ -1,4 +1,7 @@
 class VotesController < ApplicationController
+  # When receiving vote respond only with view content
+  layout false, only: [:receive]
+
   protect_from_forgery unless: [:receive]
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
 
@@ -64,20 +67,27 @@ class VotesController < ApplicationController
 
 
   # POST /vote_for/1
+  # Controller that responds to Twilio
   def receive
-    registration = Voting.last.registrations.find_by order_no: params["choice"]
-    vote = registration.votes.new(call_params)
+    begin
+      current = Voting.current
+      if current.running?
+        registration = current.registrations.find_by order_no: params["choice"]
+        vote = registration.votes.new(call_params)
 
-    response = Twilio::TwiML::Response.new do |r|
-      if vote.save
-        r.Say "Thank you! Vote received!"
+        if vote.save
+          @response = "Thank you! Vote received!"
+        else
+          @response = "Something went wrong. Try again later"
+        end
       else
-        r.Say "Something went wrong. Try again later"
+        @response = "Voting is stopped"
       end
-      r.Hangup
-    end.to_xml
-
-    render xml: response
+    rescue => e
+      logger.error e.message
+      logger.error e.backtrace.join("\n")
+      @response = "Something went wrong. Try again later"
+    end
   end
 
   private
@@ -98,4 +108,5 @@ class VotesController < ApplicationController
           from_country: params['FromCountry']
       }
     end
+
 end
