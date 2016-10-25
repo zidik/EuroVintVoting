@@ -23,7 +23,7 @@ gem 'slim-rails'
 gem 'twilio-ruby'
 
 # Use RSpec for specs
-gem 'rspec-rails', '3.1.0'
+gem 'rspec-rails', '~>3.5.0'
 
 # Use Factory Girl for generating random test data
 gem 'factory_girl_rails'
