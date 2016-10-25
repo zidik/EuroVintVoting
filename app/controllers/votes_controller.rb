@@ -69,25 +69,26 @@ class VotesController < ApplicationController
   # POST /vote_for/1
   # Controller that responds to Twilio
   def receive
-    begin
-      current = Voting.current
-      if current.running?
-        registration = current.registrations.find_by order_no: params["choice"]
-        vote = registration.votes.new(call_params)
+    current = Voting.current
 
-        if vote.save
-          @response = "Thank you! Vote received!"
-        else
-          @response = "Something went wrong. Try again later"
-        end
-      else
-        @response = "Voting is stopped"
-      end
-    rescue => e
-      logger.error e.message
-      logger.error e.backtrace.join("\n")
-      @response = "Something went wrong. Try again later"
+    unless current.running?
+      @response = "Voting is stopped"
+      return
     end
+
+    registration = current.registrations.find_by order_no: params["choice"]
+    raise "No registration found!" if registration.nil?
+
+    # Let's try to save the vote to DB
+    registration.votes.create!(call_params)
+
+    # All went well - let's notify user!
+    @response = "Thank you! Vote received!"
+
+  rescue => e
+    logger.error e.message
+    logger.error e.backtrace.join("\n")
+    @response = "Something went wrong. Try again later."
   end
 
   private
