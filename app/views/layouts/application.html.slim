@@ -7,7 +7,7 @@ html
     = javascript_include_tag :application
     = stylesheet_link_tag 'application', media: 'all'
   body
+    == yield
     - flash.each do |key, value|
-      div class=("alert alert-#{key}") = value
-
-      == yield
+      div class="alert alert-#{key}"
+        = value
