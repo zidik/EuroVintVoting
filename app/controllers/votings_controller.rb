@@ -1,4 +1,4 @@
-class VotingsController < ApplicationController
+class VotingsController < SecuredController
   before_action :set_voting, only: [:show, :edit, :update, :destroy, :start, :stop]
 
   # GET /votings

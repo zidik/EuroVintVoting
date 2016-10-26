@@ -1,4 +1,4 @@
-class VotesController < ApplicationController
+class VotesController < SecuredController
   # When receiving vote respond only with view content
   layout false, only: [:receive_vote]
 

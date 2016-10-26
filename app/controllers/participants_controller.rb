@@ -1,4 +1,4 @@
-class ParticipantsController < ApplicationController
+class ParticipantsController < SecuredController
   before_action :set_participant, only: [:show, :edit, :update, :destroy]
 
   # GET /participants

@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  get "/auth/auth0/callback" => "auth0#callback"
+  get "/auth/failure" => "auth0#failure"
+  get "/auth/login" => "auth0#login"
+
   get 'results/show'
 
-  root 'welcome#index'
-  get 'welcome/index'
+  root 'dashboard#index'
+  get 'dashboard/index'
 
   resources :votes
   resources :participants

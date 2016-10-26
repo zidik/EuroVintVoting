@@ -22,6 +22,8 @@ gem 'jquery-rails'
 
 gem 'slim-rails'
 gem 'twilio-ruby'
+gem 'omniauth', '~> 1.3.1'
+gem 'omniauth-auth0', '~> 1.4.2'
 
 
 # Use Capistrano for deployment
@@ -37,6 +39,8 @@ group :development, :test do
   # Use Factory Girl for generating random test data
   gem 'factory_girl_rails'
   gem 'rails-controller-testing'
+  # Shim to load environment variables from .env into ENV
+  gem 'dotenv-rails', :groups => [:development, :test]
 end
 
 group :development do
