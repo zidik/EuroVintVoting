@@ -1,20 +1,25 @@
-div#auth0root style="width: 320px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px; box-sizing: border-box;"
+/[if IE 8]
+script src="//cdnjs.cloudflare.com/ajax/libs/ie8/0.2.5/ie8.js"
 
-= javascript_include_tag "https://cdn.auth0.com/js/lock/10.4/lock.min.js"
+/[if lte IE 9]
+script src="https://cdn.auth0.com/js/base64.js"
+script src="https://cdn.auth0.com/js/es5-shim.min.js"
+
+script src= "https://cdn.auth0.com/js/lock/10.4/lock.min.js"
 
 javascript:
   var lock = new Auth0Lock(
           "#{ENV['AUTH0_CLIENT_ID']}",
           "#{ENV['AUTH0_DOMAIN']}",
           {
-            container: "auth0root",
             auth: {
               redirectUrl: "#{request.base_url}/auth/auth0/callback",
               responseType: 'code',
               params: {
                 scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
               }
-            }
+            },
+            closable: false
           }
   );
   lock.show();
