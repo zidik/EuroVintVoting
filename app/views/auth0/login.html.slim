@@ -7,7 +7,7 @@ javascript:
           "#{ENV['AUTH0_CLIENT_ID']}",
           "#{ENV['AUTH0_DOMAIN']}",
           {
-            container: "auth0root"
+            container: "auth0root",
             auth: {
               redirectUrl: "#{request.base_url}/auth/auth0/callback",
               responseType: 'code',
