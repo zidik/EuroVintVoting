@@ -1,8 +1,10 @@
 class VotesController < SecuredController
-  # When receiving vote respond only with view content
+  # When receiving vote respond only with view content (Twilio specific)
   layout false, only: [:receive_vote]
-
+  # Do not ask anti-forgery token from Twilio
   protect_from_forgery except: [:receive_vote]
+  # Do not force Twilio to authenticate with omniauth
+  skip_before_action :logged_in_using_omniauth?, :only => [:receive_vote]
 
   # GET /votes
   # GET /votes.json
