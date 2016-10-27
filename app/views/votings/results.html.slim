@@ -1,0 +1,23 @@
+h3 = @voting.name
+h3 Registreeringud
+
+table.table
+  thead
+    tr
+      th Riik
+      th Artist
+      th Pealkiri
+      th Hääli
+      th Koht
+
+
+  tbody
+    - @results.each_with_index do |registration, i|
+      tr
+        td = registration.participant.country
+        td = registration.participant.artist
+        td = registration.participant.title
+        td = registration.vote_count
+        td = i+1
+
+      = link_to 'Tagasi', votings_path

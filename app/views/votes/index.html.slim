@@ -1,15 +1,12 @@
 h1 Listing votes
 
-table
+table.table
   thead
     tr
       th Registration
       th From phone
       th To phone
       th From country
-      th
-      th
-      th
 
   tbody
     - @votes.each do |vote|
@@ -18,10 +15,5 @@ table
         td = vote.from_phone
         td = vote.to_phone
         td = vote.from_country
-        td = link_to 'Show', vote
-        td = link_to 'Edit', edit_vote_path(vote)
-        td = link_to 'Destroy', vote, data: { confirm: 'Are you sure?' }, method: :delete
 
-br
-
-= link_to 'New Vote', new_vote_path
+      = link_to 'Tagasi', '/'

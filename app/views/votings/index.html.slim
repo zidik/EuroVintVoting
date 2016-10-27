@@ -1,11 +1,11 @@
-h1 Listing votings
+h1 Hääletused
 
-table
+table.table
   thead
     tr
       th
-      th Name
-      th Status
+      th Nimi
+      th Staatus
       th
       th
       th
@@ -16,15 +16,20 @@ table
     - @votings.each do |voting|
       tr
         td
-          b = 'Current' if voting.current?
+          b = 'Praegune' if voting.current?
         td = voting.name
-        td = voting.running? ? "Running" : "Stopped"
-        td = link_to_if voting.startable?, 'Start', [:start, voting], data: { confirm: "Start #{voting.name}?" }, method: :post
-        td = link_to_if voting.stoppable?, 'Stop', [:stop, voting], data: { confirm: "Stop #{voting.name}?" }, method: :post
-        td = link_to 'Show', voting
-        td = link_to 'Edit', edit_voting_path(voting)
-        td = link_to 'Destroy', voting, data: { confirm: "Delete #{voting.name}?" }, method: :delete
+        td = voting.running? ? "* Käib *" : "Peatatud"
+        td = link_to 'Registreeringud', voting_registrations_path(voting)
+        td
+          = (link_to 'Alusta', [:start, voting], data: {confirm: "Alustan hääletust '#{voting.name}'?"}, method: :post) if voting.startable?
+          = (link_to 'Peata', [:stop, voting], data: {confirm: "Peatan hääletuse '#{voting.name}'?"}, method: :post) if voting.stoppable?
+        td = link_to 'Muuda', edit_voting_path(voting)
+        td = link_to 'Kustuta', voting, data: {confirm: "Delete #{voting.name}?"}, method: :delete
 
 br
 
-= link_to 'New Voting', new_voting_path
+= link_to 'Tagasi', '/'
+== " | "
+= link_to_if @votings.none?(&:running?), 'Lisa hääletus', new_voting_path
+= " - Uue hääletuse lisamiseks peata käimasolev hääletus!" if @votings.any?(&:running?)
+

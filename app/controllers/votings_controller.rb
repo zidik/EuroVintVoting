@@ -4,7 +4,7 @@ class VotingsController < SecuredController
   # GET /votings
   # GET /votings.json
   def index
-    @votings = Voting.all
+    @votings = Voting.all.order(:id)
   end
 
   # GET /votings/1
@@ -28,7 +28,8 @@ class VotingsController < SecuredController
 
     respond_to do |format|
       if @voting.save
-        format.html { redirect_to @voting, notice: 'Voting was successfully created.' }
+        flash[:success] = 'Voting was successfully created.'
+        format.html { redirect_to votings_path }
         format.json { render :show, status: :created, location: @voting }
       else
         format.html { render :new }
@@ -42,7 +43,8 @@ class VotingsController < SecuredController
   def update
     respond_to do |format|
       if @voting.update(voting_params)
-        format.html { redirect_to @voting, notice: 'Voting was successfully updated.' }
+        flash[:success] = 'Voting was successfully updated.'
+        format.html { redirect_to votings_path }
         format.json { render :show, status: :ok, location: @voting }
       else
         format.html { render :edit }
@@ -65,7 +67,7 @@ class VotingsController < SecuredController
     else
       respond_to do |format|
         format.html {
-          flash[:error] = 'Could not delete voting.'
+          flash[:danger] = 'Could not delete voting.'
           redirect_back fallback_location: votings_url
         }
         format.json { head :no_content }
@@ -79,7 +81,7 @@ class VotingsController < SecuredController
     if @voting.start!
       flash[:success] = "Voting started"
     else
-      flash[:error] = "Failed to start voting!"
+      flash[:danger] = "Failed to start voting!"
     end
     redirect_back(fallback_location: @voting)
   end
@@ -89,9 +91,21 @@ class VotingsController < SecuredController
     if @voting.stop!
       flash[:success] = "Voting stopped"
     else
-      flash[:error] = "Failed to stop voting!"
+      flash[:danger] = "Failed to stop voting!"
     end
     redirect_back(fallback_location: @voting)
+  end
+
+  def results
+    @voting = Voting.find(params[:voting_id])
+
+    @results = Registration
+                   .where(voting_id: params[:voting_id])
+                   .left_joins(:votes)
+                   .select('registrations.*, COUNT(votes.*) AS vote_count')
+                   .group('registrations.id')
+                   .order("vote_count desc")
+                   .includes(:participant)
   end
 
   private

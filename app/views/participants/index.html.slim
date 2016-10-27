@@ -1,12 +1,11 @@
-h1 Listing participants
+h3 Esinejate nimekiri
 
-table
+table.table
   thead
     tr
-      th Country
+      th Riik
       th Artist
-      th Title
-      th
+      th Lugu
       th
       th
 
@@ -16,10 +15,10 @@ table
         td = participant.country
         td = participant.artist
         td = participant.title
-        td = link_to 'Show', participant
-        td = link_to 'Edit', edit_participant_path(participant)
-        td = link_to 'Destroy', participant, data: { confirm: 'Are you sure?' }, method: :delete
+        td = link_to 'Muuda', edit_participant_path(participant)
+        td = link_to 'Kustuta', participant, data: {confirm: 'Oled sa kindel?'}, method: :delete
 
-br
+      = link_to 'Tagasi', '/'
+      == " | "
+      = link_to 'Lisa esineja', new_participant_path
 
-= link_to 'New Participant', new_participant_path

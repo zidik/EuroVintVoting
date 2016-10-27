@@ -28,7 +28,8 @@ class ParticipantsController < SecuredController
 
     respond_to do |format|
       if @participant.save
-        format.html { redirect_to @participant, notice: 'Participant was successfully created.' }
+        flash[:success] = 'Participant was successfully created.'
+        format.html { redirect_to participants_path }
         format.json { render :show, status: :created, location: @participant }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class ParticipantsController < SecuredController
   def update
     respond_to do |format|
       if @participant.update(participant_params)
-        format.html { redirect_to @participant, notice: 'Participant was successfully updated.' }
+        format.html { redirect_to participants_path, notice: 'Participant was successfully updated.' }
         format.json { render :show, status: :ok, location: @participant }
       else
         format.html { render :edit }
@@ -54,14 +55,16 @@ class ParticipantsController < SecuredController
   # DELETE /participants/1
   # DELETE /participants/1.json
   def destroy
-    if @participant.destroy
-      respond_to do |format|
-        format.html { redirect_to participants_url, notice: 'Participant was successfully destroyed.' }
+    respond_to do |format|
+      if @participant.destroy
+        flash[:success] = 'Participant was successfully destroyed.'
+        format.html { redirect_to participants_path }
         format.json { head :no_content }
+      else
+        flash[:danger] = 'Participant was NOT destroyed.'
+        format.html { redirect_to participants_path }
+        format.json { render json: @participant.errors, status: :internal_server_error }
       end
-    else
-      format.html { redirect_to participants_url, notice: 'Participant was NOT destroyed.' }
-      format.json { render json: @participant.errors, status: :internal_server_error }
     end
   end
 

@@ -6,8 +6,23 @@ html
     = csrf_meta_tags
     = javascript_include_tag :application
     = stylesheet_link_tag 'application', media: 'all'
+
+    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+    = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
   body
-    == yield
-    - flash.each do |key, value|
-      div class="alert alert-#{key}"
-        = value
+    nav class="navbar navbar-fixed-top navbar-dark bg-inverse"
+      a class="navbar-brand" href="/" EuroVint
+      ul class="nav navbar-nav"
+        li.nav-item
+          a.nav-link href="#{participants_path}" Esinejad
+        li.nav-item
+          a.nav-link href="#{votings_path}"Hääletused
+        li.nav-item
+          a.nav-link href="#{votes_path}" Telefonihäälte logi
+    div.container
+      - flash.each do |key, value|
+        div class="alert alert-#{key}" = value
+      /this line keeps yield in place
+      == yield
+
+  = javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"

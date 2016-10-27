@@ -1,4 +1,4 @@
-= form_for @registration do |f|
+= form_for [:voting, @registration] do |f|
   - if @registration.errors.any?
     #error_explanation
       h2 = "#{pluralize(@registration.errors.count, "error")} prohibited this registration from being saved:"
@@ -8,12 +8,12 @@
 
 
   .field
-    = f.label :voting
-    = f.collection_select :voting_id, Voting.all, :id, :name, {:prompt => 'Select the voting'}, :selected => @registration.voting
+    = f.label :voting, "Hääletus"
+    = f.collection_select :voting_id, Voting.all, :id, :name, {:prompt => 'vali hääletus'}, :selected => @registration.voting
   .field
-    = f.label :order_no
+    = f.label :order_no, "Järjekorranumber"
     = f.select :order_no, (1..20)
   .field
-    = f.label :participant
-    = f.collection_select :participant_id, Participant.all, :id, :to_string, {:prompt => 'Select the participant'}, :selected => @registration.participant
+    = f.label :participant, "Esineja"
+    = f.collection_select :participant_id, Participant.all, :id, :to_string, {:prompt => 'Vali esineja'}, :selected => @registration.participant
   .actions = f.submit

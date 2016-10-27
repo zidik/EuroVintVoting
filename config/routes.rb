@@ -7,19 +7,19 @@ Rails.application.routes.draw do
 
   root 'dashboard#index'
   get 'dashboard/index'
+  post 'votefor/:choice', to: 'votes#receive_vote'
 
-  resources :votes
+  resources :votes, only: [:index]
   resources :participants
-  resources :registrations
 
   resources :votings do
     member do
       post 'start'
       post 'stop'
     end
+    get :results
+    resources :registrations
   end
-
-  post 'votefor/:choice', to: 'votes#receive_vote'
 
 
 end

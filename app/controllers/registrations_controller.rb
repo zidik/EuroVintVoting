@@ -1,20 +1,15 @@
 class RegistrationsController < SecuredController
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
+  before_action :set_voting, only: [:index, :new]
 
   # GET /registrations
   # GET /registrations.json
   def index
-    @registrations = Registration.all
-  end
-
-  # GET /registrations/1
-  # GET /registrations/1.json
-  def show
   end
 
   # GET /registrations/new
   def new
-    @registration = Registration.new
+    @registration = Registration.new(voting: @voting)
   end
 
   # GET /registrations/1/edit
@@ -28,7 +23,8 @@ class RegistrationsController < SecuredController
 
     respond_to do |format|
       if @registration.save
-        format.html { redirect_to @registration, notice: 'Registration was successfully created.' }
+        flash[:success] = 'Registration was successfully created.'
+        format.html { redirect_to voting_registrations_path(@registration.voting) }
         format.json { render :show, status: :created, location: @registration }
       else
         format.html { render :new }
@@ -42,7 +38,8 @@ class RegistrationsController < SecuredController
   def update
     respond_to do |format|
       if @registration.update(registration_params)
-        format.html { redirect_to @registration, notice: 'Registration was successfully updated.' }
+        flash[:success] = 'Registration was successfully updated.'
+        format.html { redirect_to votings_registrations(@registration.voting) }
         format.json { render :show, status: :ok, location: @registration }
       else
         format.html { render :edit }
@@ -62,7 +59,13 @@ class RegistrationsController < SecuredController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
+  def set_voting
+    @voting = Voting.find(params[:voting_id])
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
     def set_registration
       @registration = Registration.find(params[:id])
     end
@@ -72,3 +75,4 @@ class RegistrationsController < SecuredController
       params.require(:registration).permit(:voting_id, :participant_id, :order_no)
     end
 end
+

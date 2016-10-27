@@ -1,8 +1,6 @@
-h1 Editing registration
+h3 Registreeringu muutmine
 
 == render 'form'
 
-= link_to 'Show', @registration
-'|
-= link_to 'Back', registrations_path
+= link_to 'Tagasi', votings_registrations_path(@registration.voting)
 

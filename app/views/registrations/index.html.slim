@@ -1,29 +1,28 @@
-h1 Listing registrations
+h3 = @voting.name
+h3 Registreeringud
 
-table
+table.table
   thead
     tr
-      th Order No
-      th Voting
-      th Country
+      th jrk
+      th Riik
       th Artist
-      th Title
+      th Pealkiri
       th
       th
       th
 
   tbody
-    - @registrations.order(:order_no).each do |registration|
+    - @voting.registrations.order(:order_no).each do |registration|
       tr
         td = registration.order_no
-        td = registration.voting.name
         td = registration.participant.country
         td = registration.participant.artist
         td = registration.participant.title
-        td = link_to 'Show', registration
-        td = link_to 'Edit', edit_registration_path(registration)
-        td = link_to 'Destroy', registration, data: { confirm: 'Are you sure?' }, method: :delete
+        td = link_to 'Muuda', edit_voting_registration_path(registration.voting, registration)
+        td = link_to 'Kustuta', voting_registration_path(registration.voting, registration), data: {confirm: 'Are you sure?'}, method: :delete
 
-br
 
-= link_to 'New Registration', new_registration_path
+      = link_to 'Tagasi', votings_path
+      == " | "
+      = link_to 'New Registration', new_voting_registration_path(@voting)
