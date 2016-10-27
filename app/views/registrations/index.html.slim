@@ -23,6 +23,6 @@ table.table
         td = link_to 'Kustuta', voting_registration_path(registration.voting, registration), data: {confirm: 'Are you sure?'}, method: :delete
 
 
-      = link_to 'Tagasi', votings_path
-      == " | "
-      = link_to 'New Registration', new_voting_registration_path(@voting)
+= link_to 'Tagasi', votings_path
+== " | "
+= link_to 'New Registration', new_voting_registration_path(@voting)

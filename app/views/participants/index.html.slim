@@ -18,7 +18,7 @@ table.table
         td = link_to 'Muuda', edit_participant_path(participant)
         td = link_to 'Kustuta', participant, data: {confirm: 'Oled sa kindel?'}, method: :delete
 
-      = link_to 'Tagasi', '/'
-      == " | "
-      = link_to 'Lisa esineja', new_participant_path
+= link_to 'Tagasi', '/'
+== " | "
+= link_to 'Lisa esineja', new_participant_path
 
