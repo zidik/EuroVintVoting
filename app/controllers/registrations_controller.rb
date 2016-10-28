@@ -1,6 +1,6 @@
 class RegistrationsController < SecuredController
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
-  before_action :set_voting, only: [:index, :new]
+  before_action :set_voting, only: [:index, :new, :create]
 
   # GET /registrations
   # GET /registrations.json
