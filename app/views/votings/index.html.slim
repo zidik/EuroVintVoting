@@ -11,6 +11,7 @@ table.table
       th
       th
       th
+      th
 
   tbody
     - @votings.each do |voting|
@@ -20,6 +21,7 @@ table.table
         td = voting.name
         td = voting.running? ? "* Käib *" : "Peatatud"
         td = link_to 'Registreeringud', voting_registrations_path(voting)
+        td = link_to 'Tulemused', voting_results_path(voting)
         td
           = (link_to 'Alusta', [:start, voting], data: {confirm: "Alustan hääletust '#{voting.name}'?"}, method: :post) if voting.startable?
           = (link_to 'Peata', [:stop, voting], data: {confirm: "Peatan hääletuse '#{voting.name}'?"}, method: :post) if voting.stoppable?
