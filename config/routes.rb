@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root 'dashboard#index'
   get 'dashboard/index'
   post 'votefor/:choice', to: 'votes#receive_vote'
+  post 'vote/sms', to: 'votes#receive_sms'
 
   resources :votes, only: [:index]
   resources :participants

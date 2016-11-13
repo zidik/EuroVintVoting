@@ -2,9 +2,9 @@ class VotesController < SecuredController
   # When receiving vote respond only with view content (Twilio specific)
   layout false, only: [:receive_vote]
   # Do not ask anti-forgery token from Twilio
-  protect_from_forgery except: [:receive_vote]
+  protect_from_forgery except: [:receive_vote, :receive_sms]
   # Do not force Twilio to authenticate with omniauth
-  skip_before_action :logged_in_using_omniauth?, :only => [:receive_vote]
+  skip_before_action :logged_in_using_omniauth?, :only => [:receive_vote, :receive_sms]
 
   # GET /votes
   # GET /votes.json
@@ -39,6 +39,20 @@ class VotesController < SecuredController
     #logger.error e.backtrace.join("\n")
     @response = "Something went wrong. Try again later."
     raise
+  end
+
+  def receive_sms
+    current = Voting.current
+    raise "There is no voting that is 'current'" if current.nil?
+    return head(:forbidden) unless current.running?
+
+    registration = current.registrations.find_by order_no: params["Body"].to_i
+    raise "No registration found!" if registration.nil?
+
+    # Let's try to save the vote to DB
+    vote = Vote.new(call_params)
+    vote.registration = registration
+    vote.save!
   end
 
   private
