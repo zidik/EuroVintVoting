@@ -1,7 +1,7 @@
 class Registration < ApplicationRecord
   belongs_to :voting
   belongs_to :participant
-  has_many :votes
+  has_many :votes, dependent: :destroy
 
   validates :order_no, numericality: { only_integer: true }
 

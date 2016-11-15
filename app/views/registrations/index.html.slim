@@ -20,7 +20,7 @@ table.table
         td = registration.participant.artist
         td = registration.participant.title
         td = link_to 'Muuda', edit_voting_registration_path(registration.voting, registration)
-        td = link_to 'Kustuta', voting_registration_path(registration.voting, registration), data: {confirm: 'Are you sure?'}, method: :delete
+        td = link_to 'Kustuta', voting_registration_path(registration.voting, registration), data: {confirm: 'Oled sa kindel?\n Registreeringu kustutamine kustutab ka kõik sellele antud hääled!'}, method: :delete
 
 
 = link_to 'Tagasi', votings_path
