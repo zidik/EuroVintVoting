@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get "/auth/auth0/callback" => "auth0#callback"
   get "/auth/failure" => "auth0#failure"
   get "/auth/login" => "auth0#login"
+  get "/auth/logout" => "auth0#logout"
 
   get 'results/show'
 

@@ -10,7 +10,7 @@ html
     = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
     = stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
   body
-    nav class="navbar navbar-fixed-top navbar-dark bg-inverse"
+    nav class="navbar navbar-fixed-top navbar-light bg-faded"
       a class="navbar-brand" href="/" EuroVint
       ul class="nav navbar-nav"
         li.nav-item
@@ -19,6 +19,14 @@ html
           a.nav-link href="#{votings_path}"Hääletused
         li.nav-item
           a.nav-link href="#{votes_path}" Telefonihäälte logi
+      -unless @user_session.nil?
+        ul class="nav navbar-nav float-xs-right"
+          li.nav-item
+            span.navbar-text class="text-muted" = "Tere " + @user_session['info']['name']
+          li.nav-item
+            span class="glyphicon glyphicon-log-out"
+            a.nav-link href="/auth/logout" Logi välja
+
     div.container
       - flash.each do |key, value|
         div class="alert alert-#{key}" = value

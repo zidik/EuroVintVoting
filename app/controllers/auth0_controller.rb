@@ -16,4 +16,9 @@ class Auth0Controller < ApplicationController
   def login
 
   end
+  def logout
+    session.clear
+    redirect_to "/"
+    #redirect_to "https://#{ENV['AUTH0_DOMAIN']}/v2/logout?returnTo="+CGI.escape(request.base_url)
+  end
 end
