@@ -39,7 +39,7 @@ class RegistrationsController < SecuredController
     respond_to do |format|
       if @registration.update(registration_params)
         flash[:success] = 'Registration was successfully updated.'
-        format.html { redirect_to votings_registrations(@registration.voting) }
+        format.html { redirect_to voting_registrations_path(@registration.voting) }
         format.json { render :show, status: :ok, location: @registration }
       else
         format.html { render :edit }
@@ -53,7 +53,7 @@ class RegistrationsController < SecuredController
   def destroy
     @registration.destroy
     respond_to do |format|
-      format.html { redirect_to registrations_url, notice: 'Registration was successfully destroyed.' }
+      format.html { redirect_to voting_registrations_path(@registration.voting), notice: 'Registration was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
