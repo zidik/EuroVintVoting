@@ -4,7 +4,7 @@ class VotesController < SecuredController
   # Do not ask anti-forgery token from Twilio
   protect_from_forgery except: [:receive_vote, :receive_sms]
   # Do not force Twilio to authenticate with omniauth
-  skip_before_action :logged_in_using_omniauth?, :only => [:receive_vote, :receive_sms]
+  skip_before_action :logged_in_using_omniauth?, :only => [:receive_vote, :receive_sms] unless Rails.env.test?
 
   # GET /votes
   # GET /votes.json
@@ -28,6 +28,7 @@ class VotesController < SecuredController
 
     # Let's try to save the vote to DB
     vote = Vote.new(call_params)
+    vote.active = true
     vote.registration = registration
     vote.save!
 
@@ -51,8 +52,13 @@ class VotesController < SecuredController
 
     # Let's try to save the vote to DB
     vote = Vote.new(call_params)
+    vote.active = true
     vote.registration = registration
     vote.save!
+    current.votes
+        .where(from_phone: vote.from_phone)
+        .where.not(id: vote.id)
+        .update(active: false)
   end
 
   private

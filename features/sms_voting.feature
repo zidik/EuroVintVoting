@@ -1,7 +1,7 @@
 Feature: Vote with SMS
-  In order to vote for one competitor
-  Voter
-  wants to send an SMS
+  As a Voter
+  I want to vote for one competitor by sending SMS
+  In order to let my team win
 
   Scenario: Voter votes for one competitor
     Given there is a running competition with 3 registrations
@@ -42,15 +42,18 @@ Feature: Vote with SMS
     Given there is a competition with 3 registrations
     When the Voter sends SMS with content "4"
     Then SMS is rejected
+    And no votes are registered
 
 
   Scenario: Voter sends garbage
     Given there is a competition with 3 registrations
     When the Voter sends SMS with content "Tere Mark!"
     Then SMS is rejected
+    And no votes are registered
 
 
   Scenario: Voter votes while competition is not running
     Given there is a competition with 1 registration
     When the Voter sends SMS with content "1"
     Then SMS is rejected
+    And no votes are registered

@@ -98,22 +98,7 @@ class VotingsController < SecuredController
 
   def results
     @voting = Voting.find(params[:voting_id])
-    current_voting_votes =
-        Vote
-          .joins('INNER JOIN "registrations" ON "registrations"."id" = "votes"."registration_id"')
-          .where(registrations: {voting_id: params[:voting_id]})
-    latest_vote_ids = current_voting_votes
-                          .select("MAX(votes.id) as latest_vote_id")
-                          .group(:from_phone)
-    latest_votes =  Vote.joins('INNER JOIN ('+latest_vote_ids.to_sql+') latest_votes ON ("latest_votes"."latest_vote_id" = "votes"."id")')
-    registration_counts = latest_votes
-                              .group("votes.registration_id")
-                              .select("count(votes.id) as vote_count, votes.registration_id")
-    registrations = Registration
-                        .where(voting_id: params[:voting_id])
-                        .joins('LEFT OUTER JOIN ('+registration_counts.to_sql+') votecounts ON ("votecounts"."registration_id" = "registrations"."id")')
-                        .select("registrations.id, registrations.participant_id, vote_count")
-    @results = registrations
+    @active_votes =  @voting.votes.active.group(:registration_id).count
   end
 
   private

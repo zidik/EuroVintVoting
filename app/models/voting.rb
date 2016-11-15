@@ -1,9 +1,12 @@
 class Voting < ApplicationRecord
+  scope :draft, -> { where(status: 'draft') }
+
   has_many :registrations, :dependent => :restrict_with_error
   has_many :participants, through: :registrations
   has_many :votes, through: :registrations
 
   validates :name, presence: true
+
 
   def self.current
     Voting.last

@@ -10,4 +10,6 @@ class Registration < ApplicationRecord
   validates_uniqueness_of :participant, :scope => :voting
   validates_uniqueness_of :order_no, :scope => :voting
 
+  scope :latest_votes, -> {Vote.latest_votes(@voting.votes)}
+
 end
