@@ -3,10 +3,11 @@ h1 Listing votes
 table.table
   thead
     tr
-      th Registration
-      th From phone
-      th To phone
-      th From country
+      th Registreering
+      th Telefoni number
+      th Vastuvõtja number
+      th Riik
+      th Aktiivne
 
   tbody
     - @votes.each do |vote|
@@ -15,5 +16,6 @@ table.table
         td = vote.from_phone
         td = vote.to_phone
         td = vote.from_country
+        td = vote.active ? "Jah" : "Ei"
 
 = link_to 'Tagasi', '/'

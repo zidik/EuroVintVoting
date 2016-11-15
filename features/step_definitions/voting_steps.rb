@@ -7,12 +7,11 @@ When(/^the Voter(?: "([^"]*)")? sends SMS with content "([^"]*)"$/) do |voter_na
   post "/vote/sms",  {Body:content, From:voter_name}
 end
 
-Given(/^there is a( running)? competition with (\d+) registrations?$/) do |running, registration_count|
-  if running
-    voting = create(:voting, :running)
-  else
-    voting = create(:voting)
-  end
+Given(/^there is a( running)? voting(?: "([^"]*)")? ?with (\d+) registrations?$/) do |running, voting_name, registration_count|
+  args = [:voting]
+  args.push(:running) if running
+  args.push(name: voting_name) unless voting_name.nil?
+  voting = create(*args)
 
   registration_count.times do |i|
     order_no = i + 1
@@ -36,4 +35,39 @@ end
 Then(/^no votes are registered$/) do
   expect(Voting.current.votes.count).to eq(0)
 end
+
+
+Given(/^I am on votings page$/) do
+  visit votings_path
+end
+
+When(/^I create a new voting "([^"]*)"$/) do |voting_name|
+  click_link "Lisa hääletus"
+  fill_in 'Nimi', with: voting_name
+  click_button 'Lisa'
+end
+
+Then(/^I should( not)? see the voting "([^"]*)" in the list$/) do |negate, voting_name|
+
+  if negate
+    expect(page).not_to have_content(voting_name)
+  else
+    expect(page).to have_content(voting_name)
+  end
+
+end
+
+When(/^I change the voting name to "([^"]*)"$/) do |voting_name|
+  visit votings_path
+  click_link "Muuda"
+  fill_in 'Nimi', with: voting_name
+  click_button 'Muuda'
+end
+
+When(/^I delete the voting "([^"]*)"$/) do |arg1|
+  visit votings_path
+  click_link "Kustuta"
+end
+
+
 

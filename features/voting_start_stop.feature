@@ -4,7 +4,7 @@ Feature: Vote with SMS
   In order to successfully execute a fair voting
 
   Background:
-    Given there is a competition with 1 registration
+    Given there is a voting with 1 registration
     And I am logged in as a Manager
 
   Scenario: The voting has not yet started

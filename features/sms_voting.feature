@@ -4,7 +4,7 @@ Feature: Vote with SMS
   In order to let my team win
 
   Scenario: Voter votes for one competitor
-    Given there is a running competition with 3 registrations
+    Given there is a running voting with 3 registrations
 
     When the Voter sends SMS with content "2"
 
@@ -15,7 +15,7 @@ Feature: Vote with SMS
 
 
   Scenario: Three voters vote
-    Given there is a running competition with 3 registrations
+    Given there is a running voting with 3 registrations
 
     When the Voter "Mati" sends SMS with content "2"
     And the Voter "Kati" sends SMS with content "1"
@@ -28,7 +28,7 @@ Feature: Vote with SMS
 
 
   Scenario: Voter changes his vote
-    Given there is a running competition with 3 registrations
+    Given there is a running voting with 3 registrations
     And the Voter "Mati" sends SMS with content "2"
     When the Voter "Mati" sends SMS with content "1"
 
@@ -39,21 +39,21 @@ Feature: Vote with SMS
 
 
   Scenario: Voter votes for nonexistent competitor
-    Given there is a competition with 3 registrations
+    Given there is a voting with 3 registrations
     When the Voter sends SMS with content "4"
     Then SMS is rejected
     And no votes are registered
 
 
   Scenario: Voter sends garbage
-    Given there is a competition with 3 registrations
+    Given there is a voting with 3 registrations
     When the Voter sends SMS with content "Tere Mark!"
     Then SMS is rejected
     And no votes are registered
 
 
   Scenario: Voter votes while competition is not running
-    Given there is a competition with 1 registration
+    Given there is a voting with 1 registration
     When the Voter sends SMS with content "1"
     Then SMS is rejected
     And no votes are registered
