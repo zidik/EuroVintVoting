@@ -15,6 +15,9 @@ class VotesController < SecuredController
   # POST /vote_for/1
   # Controller that responds to Twilio
   def receive_vote
+    restricted = RestrictedNumber.where(number: [params["From"]]).exists?
+    raise "This number is restricted" if restricted
+
     current = Voting.current
     raise "There is no voting that is 'current'" if current.nil?
 
@@ -41,11 +44,14 @@ class VotesController < SecuredController
   end
 
   def receive_sms
+    restricted = RestrictedNumber.where(number: [params["From"]]).exists?
+    return head(:forbidden) if restricted
+
     current = Voting.current
     raise "There is no voting that is 'current'" if current.nil?
     return head(:forbidden) unless current.running?
 
-    registration = current.registrations.find_by order_no: params["Body"].to_i
+    registration = current.registrations.find_by order_no: params["Body"].strip.to_i
     return head(:forbidden) if registration.nil?
 
     vote_params = call_params

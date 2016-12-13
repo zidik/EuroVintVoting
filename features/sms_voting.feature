@@ -38,22 +38,35 @@ Feature: Vote with SMS
     And competitor number 3 should have 0 votes
 
 
+  Scenario: Voters message contains whitespace
+    Given there is a running voting with 3 registrations
+    When the Voter sends SMS with content "    1  "
+    Then SMS is accepted
+    And competitor number 1 should have 1 votes
+
   Scenario: Voter votes for nonexistent competitor
-    Given there is a voting with 3 registrations
+    Given there is a running voting with 3 registrations
     When the Voter sends SMS with content "4"
     Then SMS is rejected
     And no votes are registered
 
 
   Scenario: Voter sends garbage
-    Given there is a voting with 3 registrations
+    Given there is a running voting with 3 registrations
     When the Voter sends SMS with content "Tere Mark!"
     Then SMS is rejected
     And no votes are registered
 
 
   Scenario: Voter votes while competition is not running
-    Given there is a voting with 1 registration
+    Given there is a stopped voting with 1 registration
+    When the Voter sends SMS with content "1"
+    Then SMS is rejected
+    And no votes are registered
+
+  Scenario: Voters number is on the restricted list
+    Given there is a running voting with 3 registrations
+    And the voters number is restricted
     When the Voter sends SMS with content "1"
     Then SMS is rejected
     And no votes are registered

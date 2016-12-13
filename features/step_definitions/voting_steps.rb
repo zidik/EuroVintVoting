@@ -2,12 +2,21 @@ Transform /^(-?\d+)$/ do |number|
   number.to_i
 end
 
+# Used in place of voter number
+default_voter_number = "randomNAMEstring123!=(%"
+
 When(/^the Voter(?: "([^"]*)")? sends SMS with content "([^"]*)"$/) do |voter_name, content|
-  voter_name = "randomNAMEstring123!=(%" if voter_name.nil?
+  voter_name = default_voter_number if voter_name.nil?
   post "/vote/sms",  {Body:content, From:voter_name}
 end
 
-Given(/^there is a( running)? voting(?: "([^"]*)")? ?with (\d+) registrations?$/) do |running, voting_name, registration_count|
+Given(/^the voters number is restricted$/) do
+  create(:restricted_number, {number:default_voter_number})
+end
+
+
+Given(/^there is a( running| stopped)? voting(?: "([^"]*)")? ?with (\d+) registrations?$/) do |running, voting_name, registration_count|
+  running = running==" running"
   args = [:voting]
   args.push(:running) if running
   args.push(name: voting_name) unless voting_name.nil?
