@@ -15,13 +15,13 @@
       <object-id>16524</object-id>
     </database>
     <database id="5" name="EuroVintVoting_test">
-      <object-id>16662</object-id>
+      <object-id>16739</object-id>
     </database>
     <schema id="6" parent="1" name="public">
       <object-id>2200</object-id>
       <visible>1</visible>
-      <introspection-state-number>2466</introspection-state-number>
-      <introspection-timestamp>2016-10-26.12:55:33.862</introspection-timestamp>
+      <introspection-state-number>3828</introspection-state-number>
+      <introspection-timestamp>2016-11-16.01:20:27.537</introspection-timestamp>
     </schema>
     <schema id="7" parent="1" name="pg_catalog">
       <object-id>11</object-id>
@@ -72,7 +72,7 @@
     </table>
     <table id="20" parent="6" name="votes">
       <object-id>16647</object-id>
-      <state-number>2464</state-number>
+      <state-number>3828</state-number>
     </table>
     <table id="21" parent="6" name="votings">
       <object-id>16615</object-id>
@@ -269,61 +269,65 @@ participant_id</columns>
       <mandatory>1</mandatory>
       <data-type>timestamp|0</data-type>
     </column>
-    <index id="59" parent="20" name="votes_pkey">
+    <column id="59" parent="20" name="active">
+      <state-number>3828</state-number>
+      <data-type>boolean|0</data-type>
+    </column>
+    <index id="60" parent="20" name="votes_pkey">
       <object-id>16654</object-id>
       <columns>id</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <index id="60" parent="20" name="index_votes_on_registration_id">
+    <index id="61" parent="20" name="index_votes_on_registration_id">
       <object-id>16661</object-id>
       <columns>registration_id</columns>
       <desc-columns></desc-columns>
     </index>
-    <key id="61" parent="20" name="votes_pkey">
+    <key id="62" parent="20" name="votes_pkey">
       <object-id>16655</object-id>
       <columns>id</columns>
       <underlying-index>votes_pkey</underlying-index>
       <primary>1</primary>
     </key>
-    <foreign-key id="62" parent="20" name="fk_rails_890ad1b586">
+    <foreign-key id="63" parent="20" name="fk_rails_890ad1b586">
       <object-id>16656</object-id>
       <columns>registration_id</columns>
       <ref-key>~.registrations.registrations_pkey</ref-key>
       <cascade-update-rule>restrict</cascade-update-rule>
       <cascade-delete-rule>restrict</cascade-delete-rule>
     </foreign-key>
-    <column id="63" parent="21" name="id">
+    <column id="64" parent="21" name="id">
       <state-number>2462</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
       <default-expression>nextval(&apos;votings_id_seq&apos;::regclass)</default-expression>
     </column>
-    <column id="64" parent="21" name="name">
+    <column id="65" parent="21" name="name">
       <state-number>2462</state-number>
       <data-type>varchar|0</data-type>
     </column>
-    <column id="65" parent="21" name="created_at">
+    <column id="66" parent="21" name="created_at">
       <state-number>2462</state-number>
       <mandatory>1</mandatory>
       <data-type>timestamp|0</data-type>
     </column>
-    <column id="66" parent="21" name="updated_at">
+    <column id="67" parent="21" name="updated_at">
       <state-number>2462</state-number>
       <mandatory>1</mandatory>
       <data-type>timestamp|0</data-type>
     </column>
-    <column id="67" parent="21" name="running">
+    <column id="68" parent="21" name="running">
       <state-number>2465</state-number>
       <data-type>boolean|0</data-type>
     </column>
-    <index id="68" parent="21" name="votings_pkey">
+    <index id="69" parent="21" name="votings_pkey">
       <object-id>16622</object-id>
       <columns>id</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <key id="69" parent="21" name="votings_pkey">
+    <key id="70" parent="21" name="votings_pkey">
       <object-id>16623</object-id>
       <columns>id</columns>
       <underlying-index>votings_pkey</underlying-index>

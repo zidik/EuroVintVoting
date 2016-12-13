@@ -23,7 +23,7 @@ class RegistrationsController < SecuredController
 
     respond_to do |format|
       if @registration.save
-        flash[:success] = 'Registration was successfully created.'
+        flash[:success] = 'Registreering lisatud'
         format.html { redirect_to voting_registrations_path(@registration.voting) }
         format.json { render :show, status: :created, location: @registration }
       else
@@ -53,6 +53,7 @@ class RegistrationsController < SecuredController
   def destroy
     @registration.destroy
     respond_to do |format|
+      flash[:success] = 'Registreering eemaldatud!'
       format.html { redirect_to voting_registrations_path(@registration.voting), notice: 'Registration was successfully destroyed.' }
       format.json { head :no_content }
     end

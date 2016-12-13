@@ -19,6 +19,8 @@ html
           a.nav-link href="#{votings_path}"Hääletused
         li.nav-item
           a.nav-link href="#{votes_path}" Telefonihäälte logi
+        li.nav-item
+          a.nav-link href="#{restricted_numbers_path}" Piiratud numbrid
       -unless @user_session.nil?
         ul class="nav navbar-nav float-xs-right"
           li.nav-item

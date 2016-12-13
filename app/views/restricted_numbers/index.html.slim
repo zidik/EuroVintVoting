@@ -1,0 +1,21 @@
+h1 Listing restricted_numbers
+
+table
+  thead
+    tr
+      th Name
+      th Number
+      th
+      th
+
+  tbody
+    - @restricted_numbers.each do |restricted_number|
+      tr
+        td = restricted_number.name
+        td = restricted_number.number
+        td = link_to 'Muuda', edit_restricted_number_path(restricted_number)
+        td = link_to 'Kustuta', restricted_number, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'Uus piiratud number', new_restricted_number_path

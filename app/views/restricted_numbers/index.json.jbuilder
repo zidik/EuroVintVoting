@@ -1,0 +1,1 @@
+json.array! @restricted_numbers, partial: 'restricted_numbers/restricted_number', as: :restricted_number

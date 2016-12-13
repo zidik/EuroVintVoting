@@ -1,0 +1,1 @@
+json.partial! "restricted_numbers/restricted_number", restricted_number: @restricted_number

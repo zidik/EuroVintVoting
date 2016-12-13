@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :votes, only: [:index]
   resources :participants
+  resources :restricted_numbers
 
   resources :votings do
     member do
