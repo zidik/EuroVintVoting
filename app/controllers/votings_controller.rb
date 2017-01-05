@@ -101,7 +101,7 @@ class VotingsController < SecuredController
     @voting = Voting.find(params[:voting_id])
     active_votes =  @voting.votes.active.group(:registration_id).count
     @voting.registrations.each do |r|
-      r.votecount = active_votes[r.id]
+      r.votecount = active_votes[r.id].to_i
     end
     @voting
 

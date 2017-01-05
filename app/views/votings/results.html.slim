@@ -12,7 +12,7 @@ table.table
 
 
   tbody
-    - @voting.registrations.sort_by(&:votecount).each_with_index do |registration, i|
+    - @voting.registrations.sort_by(&:votecount).reverse.each_with_index do |registration, i|
       tr
         td = registration.participant.country
         td = registration.participant.artist
