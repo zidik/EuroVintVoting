@@ -90,6 +90,11 @@ Then(/^I should see a voting "([^"]*)" have same registrations as "([^"]*)"$/) d
   expect(participants_1).to eq participants_2
 end
 
+Then(/^I should see a voting "([^"]*)" have (\d+) registrations$/) do |name, count|
+  expect(Voting.find_by(name: name).registrations.count).to eq count
+end
+
+
 
 
 

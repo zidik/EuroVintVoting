@@ -110,15 +110,16 @@ class VotingsController < SecuredController
   def copy_registrations
     if @voting.id == params[:voting][:id].to_i
       flash[:danger] = "Cannot copy from itself"
-      redirect_back(fallback_location: @voting)
-      return
+    elsif @voting.registrations.count > 0
+      flash[:danger] = "Failed to copy. There are registrations already present."
+    else
+      Voting
+          .find(params[:voting][:id])
+          .registrations
+          .map(&:dup)
+          .map{|r| r.voting=@voting; r}
+          .map(&:save!)
     end
-
-    Voting.transaction do
-      @voting.registrations.destroy_all
-      @voting.registrations = Voting.find(params[:voting][:id]).registrations.map(&:dup)
-    end
-
     redirect_back(fallback_location: @voting)
   end
 

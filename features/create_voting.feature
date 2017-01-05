@@ -31,3 +31,9 @@ Feature: Vote with SMS
     And there is a voting "Uus Hääletus" with 0 registrations
     When I copy registrations from "Esimene Hääletus" to "Uus Hääletus"
     Then I should see a voting "Uus Hääletus" have same registrations as "Esimene Hääletus"
+
+  Scenario: Copy registrations to voting that already has registrations
+    Given there is a voting "Esimene Hääletus" with 3 registrations
+    And there is a voting "Uus Hääletus" with 2 registrations
+    When I copy registrations from "Esimene Hääletus" to "Uus Hääletus"
+    Then I should see a voting "Uus Hääletus" have 2 registrations
