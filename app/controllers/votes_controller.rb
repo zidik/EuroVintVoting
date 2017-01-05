@@ -5,8 +5,8 @@ class VotesController < SecuredController
   # Do not ask anti-forgery token from Twilio
   protect_from_forgery except: [:receive_vote, :receive_sms]
   # Do not force Twilio to authenticate with omniauth
-  skip_before_action :logged_in_using_omniauth?, :only => [:receive_vote, :receive_sms] unless Rails.env.test?
-  skip_before_action :logged_in_using_omniauth?, :only => [:index] unless Rails.env.test?
+  skip_before_action :login_filter, :only => [:receive_vote, :receive_sms] unless Rails.env.test?
+  skip_before_action :login_filter, :only => [:index] unless Rails.env.test?
 
   # GET /votes
   # GET /votes.json

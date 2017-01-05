@@ -1,6 +1,6 @@
 class VotingsController < SecuredController
   before_action :set_voting, only: [:show, :edit, :update, :destroy, :start, :stop]
-  skip_before_action :logged_in_using_omniauth?, :only => [:index, :show, :results] unless Rails.env.test?
+  skip_before_action :login_filter, :only => [:index, :show, :results] unless Rails.env.test?
 
   # GET /votings
   # GET /votings.json

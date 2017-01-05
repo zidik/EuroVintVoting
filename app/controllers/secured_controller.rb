@@ -1,14 +1,19 @@
 class SecuredController < ApplicationController
 
-  before_action :logged_in_using_omniauth? unless Rails.env.test?
+  before_action :login_filter unless Rails.env.test?
   before_action :set_user_session
 
   private
 
-  def logged_in_using_omniauth?
-    unless session[:userinfo].present?
-      redirect_to "/auth/login"
-    end
+  def login_filter
+    return redirect_to "/auth/login" unless  session[:userinfo].present?
+
+    allowed_uids = [
+        'facebook|1421443111222355',
+        'google-oauth2|112064386200264766490'
+    ]
+    uid = session[:userinfo]["uid"]
+    head(:forbidden) unless allowed_uids.include?(uid)
   end
 
   def set_user_session

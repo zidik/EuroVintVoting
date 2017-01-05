@@ -1,6 +1,6 @@
 class ParticipantsController < SecuredController
   before_action :set_participant, only: [:show, :edit, :update, :destroy]
-  skip_before_action :logged_in_using_omniauth?, :only => [:index, :show] unless Rails.env.test?
+  skip_before_action :login_filter, :only => [:index, :show] unless Rails.env.test?
 
   # GET /participants
   # GET /participants.json
