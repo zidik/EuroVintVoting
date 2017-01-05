@@ -4,13 +4,15 @@ h3 Antud hääled
 table.table
   thead
     tr
+      th Registreering
       th Telefoninumber
       th Aktiivne
 
   tbody
     - @voting.votes.each do |vote|
       tr
-        td = vote.from_phone[0..1].to_s+"###"+vote.from_phone[5..-1].to_s
+        td = vote.registration.participant.country + " | " + vote.registration.voting.name
+        td = vote.from_phone[4..5].to_s+"###"+vote.from_phone[9..-1].to_s
         td = vote.active ? "Jah" : "Ei"
 
 = link_to 'Tagasi', votings_path
