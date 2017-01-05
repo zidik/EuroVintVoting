@@ -12,12 +12,12 @@ table.table
 
 
   tbody
-    - @voting.registrations.each_with_index do |registration, i|
+    - @voting.registrations.sort_by(&:votecount).each_with_index do |registration, i|
       tr
         td = registration.participant.country
         td = registration.participant.artist
         td = registration.participant.title
-        td = @active_votes[registration.id]
+        td = registration.votecount
         td = i+1
 
 = link_to 'Tagasi', votings_path

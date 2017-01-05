@@ -1,5 +1,6 @@
 class VotingsController < SecuredController
   before_action :set_voting, only: [:show, :edit, :update, :destroy, :start, :stop]
+  skip_before_action :logged_in_using_omniauth?, :only => [:index, :show, :results] unless Rails.env.test?
 
   # GET /votings
   # GET /votings.json
@@ -98,7 +99,12 @@ class VotingsController < SecuredController
 
   def results
     @voting = Voting.find(params[:voting_id])
-    @active_votes =  @voting.votes.active.group(:registration_id).count
+    active_votes =  @voting.votes.active.group(:registration_id).count
+    @voting.registrations.each do |r|
+      r.votecount = active_votes[r.id]
+    end
+    @voting
+
   end
 
   private

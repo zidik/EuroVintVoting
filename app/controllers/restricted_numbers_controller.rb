@@ -1,5 +1,6 @@
-class RestrictedNumbersController < ApplicationController
+class RestrictedNumbersController < SecuredController
   before_action :set_restricted_number, only: [:show, :edit, :update, :destroy]
+  skip_before_action :logged_in_using_omniauth?, :only => [:index, :show] unless Rails.env.test?
 
   # GET /restricted_numbers
   # GET /restricted_numbers.json

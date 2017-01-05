@@ -1,6 +1,7 @@
 class RegistrationsController < SecuredController
   before_action :set_registration, only: [:show, :edit, :update, :destroy]
   before_action :set_voting, only: [:index, :new, :create]
+  skip_before_action :logged_in_using_omniauth?, :only => [:index, :show] unless Rails.env.test?
 
   # GET /registrations
   # GET /registrations.json
