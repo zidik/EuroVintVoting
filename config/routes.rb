@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     member do
       post 'start'
       post 'stop'
+      post 'copy_registrations'
     end
     get :results
     resources :registrations

@@ -78,5 +78,18 @@ When(/^I delete the voting "([^"]*)"$/) do |arg1|
   click_link "Kustuta"
 end
 
+When(/^I copy registrations from "([^"]*)" to "([^"]*)"$/) do |source_name, target_name|
+  visit voting_registrations_path(Voting.find_by(name: target_name))
+  select source_name
+  click_button "Kopeeri registreeringud"
+end
+
+Then(/^I should see a voting "([^"]*)" have same registrations as "([^"]*)"$/) do |name_1, name_2|
+  participants_1 = Voting.find_by(name: name_1).registrations.map(&:participant).map(&:id)
+  participants_2 = Voting.find_by(name: name_2).registrations.map(&:participant).map(&:id)
+  expect(participants_1).to eq participants_2
+end
+
+
 
 

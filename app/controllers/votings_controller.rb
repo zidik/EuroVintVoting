@@ -1,5 +1,5 @@
 class VotingsController < SecuredController
-  before_action :set_voting, only: [:show, :edit, :update, :destroy, :start, :stop]
+  before_action :set_voting, only: [:show, :edit, :update, :destroy, :start, :stop, :copy_registrations]
   skip_before_action :login_filter, :only => [:index, :show, :results] unless Rails.env.test?
 
   # GET /votings
@@ -105,6 +105,21 @@ class VotingsController < SecuredController
     end
     @voting
 
+  end
+
+  def copy_registrations
+    if @voting.id == params[:voting][:id].to_i
+      flash[:danger] = "Cannot copy from itself"
+      redirect_back(fallback_location: @voting)
+      return
+    end
+
+    Voting.transaction do
+      @voting.registrations.destroy_all
+      @voting.registrations = Voting.find(params[:voting][:id]).registrations.map(&:dup)
+    end
+
+    redirect_back(fallback_location: @voting)
   end
 
   private

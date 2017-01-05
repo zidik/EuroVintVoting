@@ -26,3 +26,11 @@ table.table
 = link_to 'Tagasi', votings_path
 == " | "
 = link_to 'Uus registreering', new_voting_registration_path(@voting)
+== " | "
+h4 Registreeringute kopeerimine
+= form_tag([:copy_registrations, @voting], method: "post") do |f|
+  .field
+    = label :voting, "Hääletus: "
+    = collection_select :voting, :id, Voting.where.not(id: @voting.id), :id, :name
+  .actions = submit_tag 'Kopeeri registreeringud'
+

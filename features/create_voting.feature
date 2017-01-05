@@ -25,3 +25,9 @@ Feature: Vote with SMS
     Given there is a voting "Registreeringuga hääletus" with 1 registrations
     When I delete the voting "Registreeringuga hääletus"
     And I should see the voting "Registreeringuga hääletus" in the list
+
+  Scenario: Copy registrations to empty voting
+    Given there is a voting "Esimene Hääletus" with 3 registrations
+    And there is a voting "Uus Hääletus" with 0 registrations
+    When I copy registrations from "Esimene Hääletus" to "Uus Hääletus"
+    Then I should see a voting "Uus Hääletus" have same registrations as "Esimene Hääletus"
