@@ -19,5 +19,11 @@ table.table
         td = registration.participant.title
         td = registration.votecount
         td = i+1
+    tr
+      td colspan=3 align="right"
+        b Kokku:
+      td colspan=2
+        b
+          = @voting.registrations.map(&:votecount).map(&:to_i).sum
 
 = link_to 'Tagasi', votings_path
