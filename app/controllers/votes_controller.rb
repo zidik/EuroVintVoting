@@ -1,4 +1,5 @@
 class VotesController < SecuredController
+  before_action :set_voting, only: [:index]
   # When receiving vote respond only with view content (Twilio specific)
   layout false, only: [:receive_vote]
   # Do not ask anti-forgery token from Twilio
@@ -10,7 +11,6 @@ class VotesController < SecuredController
   # GET /votes
   # GET /votes.json
   def index
-    @votes = Vote.all
   end
 
   # POST /vote_for/1
@@ -62,6 +62,11 @@ class VotesController < SecuredController
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_voting
+      @voting = Voting.find(params[:voting_id])
+    end
+
     def add_vote params
       # Let's try to save the vote to DB
       vote = Vote.new(params)

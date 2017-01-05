@@ -1,21 +1,16 @@
-h1 Listing votes
+h3 = @voting.name
+h3 Antud hääled
 
 table.table
   thead
     tr
-      th Registreering
-      th Telefoni number
-      th Vastuvõtja number
-      th Riik
+      th Telefoninumber
       th Aktiivne
 
   tbody
-    - @votes.each do |vote|
+    - @voting.votes.each do |vote|
       tr
-        td = vote.registration.voting.name + " | " + vote.registration.participant.country
-        td = vote.from_phone
-        td = vote.to_phone
-        td = vote.from_country
+        td = vote.from_phone[0..1].to_s+"###"+vote.from_phone[5..-1].to_s
         td = vote.active ? "Jah" : "Ei"
 
-= link_to 'Tagasi', '/'
+= link_to 'Tagasi', votings_path

@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   post 'votefor/:choice', to: 'votes#receive_vote'
   post 'vote/sms', to: 'votes#receive_sms'
 
-  resources :votes, only: [:index]
   resources :participants
   resources :restricted_numbers
 
@@ -22,6 +21,7 @@ Rails.application.routes.draw do
     end
     get :results
     resources :registrations
+    resources :votes, only: [:index]
   end
 
 

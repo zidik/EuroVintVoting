@@ -61,20 +61,19 @@ class RegistrationsController < SecuredController
   end
 
   private
-
-    # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions.
   def set_voting
     @voting = Voting.find(params[:voting_id])
   end
 
   # Use callbacks to share common setup or constraints between actions.
-    def set_registration
-      @registration = Registration.find(params[:id])
-    end
+  def set_registration
+    @registration = Registration.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def registration_params
-      params.require(:registration).permit(:voting_id, :participant_id, :order_no)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def registration_params
+    params.require(:registration).permit(:voting_id, :participant_id, :order_no)
+  end
 end
 

@@ -1,1 +1,1 @@
-json.array! @votes, partial: 'votes/vote', as: :vote
+json.array! @voting.votes, partial: 'votes/vote', as: :vote
