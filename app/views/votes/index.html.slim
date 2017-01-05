@@ -11,7 +11,7 @@ table.table
   tbody
     - @voting.votes.each do |vote|
       tr
-        td = vote.registration.participant.country + " | " + vote.registration.voting.name
+        td = vote.registration.participant.country + " | " + vote.registration.participant.title
         td = vote.from_phone[4..5].to_s+"###"+vote.from_phone[9..-1].to_s
         td = vote.active ? "Jah" : "Ei"
 
