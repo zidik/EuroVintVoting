@@ -1,0 +1,1 @@
+json.array! @voting.registrations, partial: 'votings/result', as: :result
