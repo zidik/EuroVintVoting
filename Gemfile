@@ -34,6 +34,8 @@ gem 'newrelic_rpm', group: :production
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  # Use RSpec for specs
+  gem 'rspec-rails', '~>3.5.0'
   # Use Factory Girl for generating random test data
   gem 'factory_girl_rails'
   gem 'rails-controller-testing'
@@ -48,6 +50,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'guard-rspec', require: false
 end
 
 group :test do
