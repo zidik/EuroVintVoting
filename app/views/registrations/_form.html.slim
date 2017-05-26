@@ -12,7 +12,7 @@
     = f.collection_select :voting_id, Voting.all, :id, :name, {:prompt => 'vali hääletus'}, :selected => @registration.voting
   .field
     = f.label :order_no, "Järjekorranumber"
-    = f.select :order_no, (1..20)
+    = f.select :order_no, (1..25)
   .field
     = f.label :participant, "Esineja"
     = f.collection_select :participant_id, Participant.all, :id, :to_string, {:prompt => 'Vali esineja'}, :selected => @registration.participant
