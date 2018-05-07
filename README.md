@@ -1,4 +1,5 @@
-# EuroVintVoting
+# EuroVintVoting ![CircleCI](https://img.shields.io/circleci/project/github/zidik/EuroVintVoting.svg) [![Test Coverage](https://api.codeclimate.com/v1/badges/4f5da28a53af82c06fca/test_coverage)](https://codeclimate.com/github/zidik/EuroVintVoting/test_coverage)
+
 This is a system for managing a SMS-voting and collecting SMS-votes. It relies on [Twilio Programmable-SMS](https://www.twilio.com/sms) for receiving the SMS-votes. The application stores the received votes and provides aggregated data about the results of the votings. It is written in Ruby and uses Ruby on Rails web application framework.
 
 ## Eurovint
