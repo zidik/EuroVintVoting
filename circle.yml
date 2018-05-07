@@ -12,5 +12,5 @@ test:
     - ./cc-test-reporter before-build
   override:
     - mkdir -p $CIRCLE_TEST_REPORTS/cucumber
-    - bundle exec cucumber --format junit --out $CIRCLE_TEST
+    - bundle exec cucumber --format junit --out $CIRCLE_TEST_REPORTS/cucumber/junit.xml
     - ./cc-test-reporter after-build --exit-code $?
