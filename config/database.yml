@@ -10,15 +10,15 @@ default: &default
 development:
   <<: *default
   host: localhost
-  username: postgres
-  password:
-  database: EuroVintVoting_development
+  username: EuroVintVoting_dev
+  password: EurovintVoting_dev
+  database: EuroVintVoting_dev
 
 test: &test
   <<: *default
   host: localhost
-  username: postgres
-  password:
+  username: EuroVintVoting_test
+  password: EuroVintVoting_test
   database: EuroVintVoting_test
 
 production:

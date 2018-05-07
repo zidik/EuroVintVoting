@@ -60,6 +60,7 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'rack-test'
+  gem 'simplecov', require: false
 end
 
 
