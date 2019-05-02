@@ -5,7 +5,7 @@ script src="//cdnjs.cloudflare.com/ajax/libs/ie8/0.2.5/ie8.js"
 script src="https://cdn.auth0.com/js/base64.js"
 script src="https://cdn.auth0.com/js/es5-shim.min.js"
 
-script src= "https://cdn.auth0.com/js/lock/10.4/lock.min.js"
+script src= "https://cdn.auth0.com/js/lock/11.15/lock.min.js"
 
 javascript:
   var lock = new Auth0Lock(
@@ -13,7 +13,7 @@ javascript:
           "#{ENV['AUTH0_DOMAIN']}",
           {
             auth: {
-              redirectUrl: "#{request.base_url}/auth/auth0/callback",
+              redirectUrl: "#{request.base_url}/auth/oauth2/callback",
               responseType: 'code',
               params: {
                 scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
